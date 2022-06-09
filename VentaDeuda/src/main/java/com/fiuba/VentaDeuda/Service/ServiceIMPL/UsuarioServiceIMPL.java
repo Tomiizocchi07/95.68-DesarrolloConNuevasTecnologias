@@ -11,20 +11,25 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 
 @Service("userDetailsService")
-public class UsuarioServiceIMPL implements UsuarioService, UserDetailsService {
+public class UsuarioServiceIMPL implements UsuarioService {
 
     @Autowired
     private UsuarioDAO usuarioDAO;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     @Override
-    public void guardar(Usuario usuario) {
-        usuarioDAO.save(usuario);
+    public Usuario guardar(Usuario usuario) {
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+        return(usuarioDAO.save(usuario));
     }
 
     @Override
@@ -33,21 +38,9 @@ public class UsuarioServiceIMPL implements UsuarioService, UserDetailsService {
     }
 
     @Override
-    @Transactional(readOnly=true)
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        Usuario usuario = usuarioDAO.findByUserName(userName);
-
-        if(usuario == null){
-            throw new UsernameNotFoundException(userName);
-        }
-
-        ArrayList<GrantedAuthority> niveles = new ArrayList();
-
-        for(Nivel nivel: usuario.getNivel()){
-            niveles.add(new SimpleGrantedAuthority(nivel.getNombre()));
-        }
-
-        return new User(usuario.getUserName(), usuario.getPassword(), niveles);
+    public Usuario findByUserName(String userName) {
+        return(usuarioDAO.findByUserName(userName));
     }
+
 }
 

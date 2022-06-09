@@ -17,17 +17,25 @@ public class Usuario implements Serializable {
     private long idUsuario;
 
     @NotNull
+    @Column(name = "userName")
     private String userName;
 
     @NotNull
+    @Column(name = "password")
     private String password;
 
+    @Column(name = "email")
+    private String email;
+
     @NotNull
+    @Column(name = "cuit")
     private String cuit;
 
     @OneToMany
+    @Column(name = "rol")
     private List<Rol> rol;
 
     @OneToMany
+    @Column(name = "nivel")
     private List<Nivel> nivel;
 }

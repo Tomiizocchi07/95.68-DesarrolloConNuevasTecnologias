@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.math.BigInteger;
 
 @Data
 @NoArgsConstructor
@@ -15,4 +16,10 @@ public class DeudaRequest {
     @NotNull
     @NotBlank
     private Long idDeuda;
+
+    private BigInteger monto;
+
+    private BigInteger costo;
+
+    private String descripcion;
 }

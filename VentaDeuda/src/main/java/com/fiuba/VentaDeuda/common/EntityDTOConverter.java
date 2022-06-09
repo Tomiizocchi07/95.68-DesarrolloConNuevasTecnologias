@@ -2,7 +2,10 @@ package com.fiuba.VentaDeuda.common;
 
 import com.fiuba.VentaDeuda.DTO.Deuda.DeudaRequest;
 import com.fiuba.VentaDeuda.DTO.Deuda.DeudaResponse;
+import com.fiuba.VentaDeuda.DTO.Usuario.UsuarioRequest;
+import com.fiuba.VentaDeuda.DTO.Usuario.UsuarioResponse;
 import com.fiuba.VentaDeuda.Domain.Deuda;
+import com.fiuba.VentaDeuda.Domain.Usuario;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,5 +29,13 @@ public class EntityDTOConverter {
 
     public List<DeudaResponse> convertDeudasToDTO(List<Deuda> deudas){
         return deudas.stream().map(deuda -> convertDeudaToDTO(deuda)).collect(Collectors.toList());
+    }
+
+    public UsuarioResponse convertUsuarioToDTO(Usuario usuario){
+        return modelMapper.map(usuario,UsuarioResponse.class);
+    }
+
+    public Usuario convertDTOToUsuario(UsuarioRequest usuarioRequest){
+        return modelMapper.map(usuarioRequest,Usuario.class);
     }
 }
