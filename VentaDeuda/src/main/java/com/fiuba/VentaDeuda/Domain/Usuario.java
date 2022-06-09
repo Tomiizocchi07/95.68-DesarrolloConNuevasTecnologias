@@ -17,7 +17,7 @@ public class Usuario implements Serializable {
     private long idUsuario;
 
     @NotNull
-    private String username;
+    private String userName;
 
     @NotNull
     private String password;
@@ -27,4 +27,7 @@ public class Usuario implements Serializable {
 
     @OneToMany
     private List<Rol> rol;
+
+    @OneToMany
+    private List<Nivel> nivel;
 }

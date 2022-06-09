@@ -13,21 +13,21 @@ import java.util.List;
 public class DeudaServiceIMPL implements DeudaService {
 
     @Autowired
-    private DeudaDAO deudaService;
+    private DeudaDAO deudaDAO;
 
     @Override
     @Transactional
     public void guardar(Deuda deuda) {
-        deudaService.save(deuda);
+        deudaDAO.save(deuda);
     }
 
     @Override
     public Deuda encontrarDeuda(Long idDeuda) {
-        return(deudaService.findById(idDeuda).orElse(null));
+        return(deudaDAO.findById(idDeuda).orElse(null));
     }
 
     @Override
     public List<Deuda> listarDeudas() {
-        return(deudaService.findAll());
+        return(deudaDAO.findAll());
     }
 }
