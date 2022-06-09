@@ -3,15 +3,15 @@ package com.fiuba.VentaDeuda.Domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
-
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "deuda")
 @Data
-public class Deuda {
+public class Deuda implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,8 +21,10 @@ public class Deuda {
     private BigInteger monto;
 
     @ManyToOne
-    @JoinColumn(name = "idUsuario")
-    private Usuario usuario;
+    private RolComprador idComprador;
+
+    @ManyToOne
+    private RolVendedor idVendedor;
 
     private BigInteger costo;
 
