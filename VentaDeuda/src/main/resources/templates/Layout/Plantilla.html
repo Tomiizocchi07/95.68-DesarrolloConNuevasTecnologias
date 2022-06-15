@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Plantilla</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
     <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
@@ -14,25 +15,25 @@
     <header th:fragment="header">
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
             <div class="container">
-                <a th:href="@{/}" class="navbar-brand" th:text="MarketPlace">MarketPlace</a>
+                <a th:href="@{/}" class="navbar-brand">MarketPlace</a>
                 <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav">
                         <li class="nav-item px-2">
-                            <a th:href="@{/}" class="nav-link active" th:text="Inicio">Inicio</a>
+                            <a th:href="@{/}" class="nav-link active">Inicio</a>
                         </li>
                     </ul>
-                    <ul sec:authorize="isAuthenticated()" class="navbar-nav ml-auto">
-                        <li class="nav-item mr-3">
+                    <ul sec:authorize="isAuthenticated()" class="navbar-nav ml-auto align-content-end">
+                        <li class="nav-item mr-3 align-content-end">
                             <a href="#" class="nav-link">
                                 <i class="fas fa-user"></i>
                                 <span th:text="Bienvenido">Bievenido:</span>
                                 <span sec:authentication="name">Usuario</span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item align-content-end">
                             <form method="POST" th:action="@{/logout}">
                                 <a href="#" onclick="this.parentNode.submit();" class="nav-link">
                                     <i class="fas fa-user-times"></i> "Salir"

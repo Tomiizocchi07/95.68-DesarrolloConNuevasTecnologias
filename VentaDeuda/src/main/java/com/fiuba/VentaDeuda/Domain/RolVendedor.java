@@ -7,7 +7,6 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "vendedor")
 @Data
 public class RolVendedor extends Rol {
 

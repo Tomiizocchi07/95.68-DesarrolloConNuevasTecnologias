@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
-    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-    <title>MarketPlace</title>
+<head th:replace="Layout/plantilla :: head">
+    <title>Inicio</title>
+    <meta charset="UTF-8"/>
 </head>
 <body>
-    <nav class="navbar navbar-expand-ig navbar-light bg-light">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item ml-5">
-                    <a th:href="@{/auth/login}"> Login </a>
-                </li>
-                <li class="nav-item ml-5">
-                    <a th:href="@{/auth/registro}"> Registro </a>
-                </li>
-            </ul>
+    <header th:replace="Layout/plantilla :: header">
+    </header>
+    <div class="container-fluid">
+        <img src="./Images/deuda.png">
+        <div class="container" style="width: 40%; position: absolute; bottom:30%; right: 10%;">
+            <div class="text-end" style="color: white; font-size: xx-large;">
+                <h1><b>Que la deuda la pague otro</b></h1>
+            </div>
+            <div class="text-end" style="color: white; font-size:x-large;">
+                ¡Conectá con empresas profesionales en cobranza y vendé las deudas que tengas problemas en cobrar!
+            </div>
+            <br>
+            <div class="container" style="padding-left: 40%;">
+                <a th:href="@{/auth/login}" class="btn btn-success btn-block col-md-4">Iniciar Sesion</a>
+                <a th:href="@{/auth/registro}" class="btn btn-secondary btn-block col-md-4">Registrarse</a>
+            </div>
         </div>
-    </nav>
+    </div>
 
 </body>
 </html>

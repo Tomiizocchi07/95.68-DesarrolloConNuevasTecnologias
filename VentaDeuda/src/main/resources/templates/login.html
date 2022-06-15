@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
+<head th:replace="Layout/plantilla :: head">
     <title>Login</title>
     <meta charset="UTF-8"/>
 </head>
@@ -12,8 +13,7 @@
             </div>
         </div>
     </section>
-
-    <section id="login">
+    <section>
         <div class="container">
             <div class="row">
                 <div class="col-md-6 mx-auto">
@@ -28,11 +28,16 @@
                                     <label for="username">Username:</label>
                                     <input type="text" name="username" id="username"/>
                                 </div>
+                                <br>
                                 <div class="form-group">
-                                    <label for="password">Password:</label>
+                                    <label for="password">Password: </label>
                                     <input type="password" name="password" id="password"/>
                                 </div>
-                                <input type="submit" value="Login" class="btn btn-primary btn-block"/>
+                                <br>
+                                <div class="container">
+                                    <input type="submit"class="btn btn-success btn-block col-md-4" value="Iniciar Sesion"/>
+                                    <a th:href="@{/}" class="btn btn-secondary btn-block col-md-4">Regresar</a>
+                                </div>
                             </form>
                         </div>
                     </div>
