@@ -14,7 +14,7 @@
             <div class="card">
                 <div class="card-header"><h4>Crear Deuda</h4></div>
                 <div class="card-body">
-                    <form th:action="@{/deuda/guardar}"th:object="${deuda}"method="POST">
+                    <form th:action="@{/deuda/crear}"th:object="${deuda}"method="POST">
                         <div class="row form-group">
                             <label class="col-md-3">Valor a cobrar</label>
                             <input type="text"class="form-control col-md-7"th:field="*{valor}"/>
@@ -22,13 +22,8 @@
                         <br>
                         <div class="row form-group">
                             <label class="col-md-3">Precio</label>
-                            <input type="text"class="form-control col-md-7"th:field="*{precio}"/>
+                            <input type="text"class="form-control col-md-7" th:field="*{precio}"/>
                         </div>
-<!--                        <br>
-                        <div class="row form-group">
-                            <label class="col-md-3">Fecha de creación</label>
-                            <input type="date" class="form-control col-md-7"th:field="*{fechaCreacion}"/>
-                        </div>-->
                         <br>
                         <div class="row form-group">
                             <label class="col-md-3">Informacion</label>

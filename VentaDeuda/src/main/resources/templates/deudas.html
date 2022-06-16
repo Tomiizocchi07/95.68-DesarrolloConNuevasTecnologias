@@ -22,7 +22,6 @@
                                 <th>Vendedor</th>
                                 <th>Valor</th>
                                 <th>Precio</th>
-                                <th>Fecha</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -31,7 +30,6 @@
                                 <td>[[${deuda.vendedor}]]</td>
                                 <td>[[${deuda.valor}]]</td>
                                 <td>[[${deuda.precio}]]</td>
-                                <td>[[${deuda.fechaCreacion}]]</td>
                                 <td>
                                     <a th:href="@{/deuda/comprar/} + ${deuda.idDeuda}" class="btn btn-dark">
                                         <i class="fas fa-angle-double-right"></i> Comprar

@@ -2,23 +2,18 @@ package com.fiuba.VentaDeuda.Domain;
 
 import lombok.Data;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.util.List;
 
 @Entity
 @Data
-public class RolVendedor implements Serializable {
-
-    @Id
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idUsuario")
-    private Usuario usuario;
+public class RolVendedor extends Rol{
 
     @OneToMany
     private List<Deuda> deudasVendidas;
 
     public void agregarVenta(Deuda deuda){
-        this.deudasVendidas.add(deuda);
+        deudasVendidas.add(deuda);
     }
 }

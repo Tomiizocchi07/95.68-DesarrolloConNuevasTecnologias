@@ -37,13 +37,13 @@ public class Usuario implements Serializable {
     private String cuit;
 
     @Column(name = "saldo")
-    private BigInteger saldo;
+    private int saldo;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private RolVendedor ventas;
-
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private RolComprador compras;
+
+    @OneToOne
+    private RolVendedor ventas;
 
     @OneToMany
     @Column(name = "nivel")

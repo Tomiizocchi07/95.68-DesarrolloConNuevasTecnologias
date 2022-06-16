@@ -5,6 +5,8 @@ import com.fiuba.VentaDeuda.Domain.RolVendedor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.math.BigInteger;
 import java.time.LocalDate;
 
@@ -15,10 +17,9 @@ public class DeudaResponse {
 
     private long idDeuda;
     private BigInteger valor;
-    private RolComprador idComprador;
-    private RolVendedor idVendedor;
+    private RolComprador comprador;
+    private RolVendedor vendedor;
     private BigInteger precio;
-    private LocalDate fechaCreacion;
     private boolean estado;
     private String descripcion;
 }
