@@ -15,6 +15,8 @@ public class UsuarioRequest {
 
     private String password;
 
+    private String email;
+
     private String cuit;
 
 }

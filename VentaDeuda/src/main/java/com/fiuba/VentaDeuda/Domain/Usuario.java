@@ -1,11 +1,16 @@
 package com.fiuba.VentaDeuda.Domain;
 
 import lombok.Data;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 @Entity
 @Table(name = "usuario")
@@ -31,9 +36,14 @@ public class Usuario implements Serializable {
     @Column(name = "cuit")
     private String cuit;
 
-    @OneToMany
-    @Column(name = "rol")
-    private List<Rol> rol;
+    @Column(name = "saldo")
+    private BigInteger saldo;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private RolVendedor ventas;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private RolComprador compras;
 
     @OneToMany
     @Column(name = "nivel")

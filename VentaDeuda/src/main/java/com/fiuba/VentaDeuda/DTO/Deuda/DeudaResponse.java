@@ -14,10 +14,10 @@ import java.time.LocalDate;
 public class DeudaResponse {
 
     private long idDeuda;
-    private BigInteger monto;
+    private BigInteger valor;
     private RolComprador idComprador;
     private RolVendedor idVendedor;
-    private BigInteger costo;
+    private BigInteger precio;
     private LocalDate fechaCreacion;
     private boolean estado;
     private String descripcion;

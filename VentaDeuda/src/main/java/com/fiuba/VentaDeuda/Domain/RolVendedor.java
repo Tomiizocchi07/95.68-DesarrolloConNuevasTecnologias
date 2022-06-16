@@ -8,8 +8,17 @@ import java.util.List;
 
 @Entity
 @Data
-public class RolVendedor extends Rol {
+public class RolVendedor implements Serializable {
+
+    @Id
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idUsuario")
+    private Usuario usuario;
 
     @OneToMany
     private List<Deuda> deudasVendidas;
+
+    public void agregarVenta(Deuda deuda){
+        this.deudasVendidas.add(deuda);
+    }
 }

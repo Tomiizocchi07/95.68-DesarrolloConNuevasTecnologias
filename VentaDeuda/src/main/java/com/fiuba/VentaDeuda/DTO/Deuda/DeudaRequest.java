@@ -1,25 +1,24 @@
 package com.fiuba.VentaDeuda.DTO.Deuda;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.math.BigInteger;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class DeudaRequest {
 
-    @NotNull
-    @NotBlank
-    private Long idDeuda;
+    private BigInteger valor;
 
-    private BigInteger monto;
-
-    private BigInteger costo;
+    private BigInteger precio;
 
     private String descripcion;
+
+    private LocalDate fechaCreacion = LocalDate.now();
 }

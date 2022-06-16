@@ -32,13 +32,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
-        http.authorizeRequests()
+        http.csrf().disable().authorizeRequests()
                 .antMatchers("/","/auth/**").permitAll().anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/auth/login").defaultSuccessUrl("/deudas/listado",true).failureUrl("/auth/login?error=true")
+                    .loginPage("/auth/login")
+                    .defaultSuccessUrl("/deuda/listado",true)
+                    .failureUrl("/auth/login?error=true")
                 .loginProcessingUrl("/auth/login-post").permitAll()
                 .and()
-                .logout().logoutUrl("/logout").logoutSuccessUrl("/public/index");
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/public/index").deleteCookies();
     }
 }

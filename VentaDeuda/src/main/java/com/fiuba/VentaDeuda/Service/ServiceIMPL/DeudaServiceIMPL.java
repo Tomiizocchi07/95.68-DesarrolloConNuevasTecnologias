@@ -17,8 +17,8 @@ public class DeudaServiceIMPL implements DeudaService {
 
     @Override
     @Transactional
-    public void guardar(Deuda deuda) {
-        deudaDAO.save(deuda);
+    public Deuda guardar(Deuda deuda) {
+        return (deudaDAO.save(deuda));
     }
 
     @Override

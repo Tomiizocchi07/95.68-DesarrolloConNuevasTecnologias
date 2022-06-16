@@ -3,6 +3,8 @@ package com.fiuba.VentaDeuda.Domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
@@ -18,18 +20,19 @@ public class Deuda implements Serializable {
     private long idDeuda;
 
     @NotNull
-    private BigInteger monto;
+    private BigInteger valor;
 
     @ManyToOne
-    private RolComprador idComprador;
+    private RolComprador comprador;
 
     @ManyToOne
-    private RolVendedor idVendedor;
-
-    private BigInteger costo;
+    private RolVendedor vendedor;
 
     @NotNull
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    private BigInteger precio;
+
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaCreacion;
 
     //Si la deuda esta vendida, su estado será true.

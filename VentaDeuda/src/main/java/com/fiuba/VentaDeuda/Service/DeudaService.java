@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface DeudaService {
 
-    void guardar(Deuda deuda);
+    Deuda guardar(Deuda deuda);
 
     Deuda encontrarDeuda(Long idDeuda);
 

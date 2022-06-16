@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="Layout/plantilla :: head">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Registro</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header"><h4>Perfil</h4></div>
+                    <div class="card-body">
+                        <form th:action="@{/usuario}"th:object="${usuario}"method="GET">
+                            <div class="row form-group">
+                                <label class="col-md-3">Username</label>
+                                <input type="text"class="form-control col-md-7"th:field="*{userName}"/>
+                            </div>
+                            <br>
+                            <div class="row form-group">
+                                <label class="col-md-3">Email</label>
+                                <input type="text"class="form-control col-md-7"th:field="*{email}"/>
+                            </div>
+                            <br>
+                            <div class="row form-group">
+                                <label class="col-md-3">Cuit</label>
+                                <input type="text"class="form-control col-md-7"th:field="*{cuit}"/>
+                            </div>
+                            <br>
+                            <div class="row form-group">
+                                <label class="col-md-3">Password</label>
+                                <input type="password"class="form-control col-md-7"th:field="*{password}"/>
+                            </div>
+                            <br>
+                            <div class="row form-group hstack gap-2 justify-content-lg-center">
+                                <a th:href="@{/deuda/listado}" class="btn btn-info btn-block col-md-4">Regresar</a>
+                            </div>
+                        </form >
+                    </div>
+                </div>
+            </div>
+            <br><br>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Lista de Ventas</h4>
+                        </div>
+                        <div th:if="${ventas != null and !ventas.empty}">
+                            <table class="table table-stryped">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Vendedor</th>
+                                        <th>Valor</th>
+                                        <th>Precio</th>
+                                        <th>Fecha</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="venta, contador : ${ventas}">
+                                        <td>[[${contador.count}]]</td>
+                                        <td>[[${venta.vendedor}]]</td>
+                                        <td>[[${venta.valor}]]</td>
+                                        <td>[[${venta.precio}]]</td>
+                                        <td>[[${venta.fechaCreacion}]]</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-center p-2" th:if="${ventas == null or ventas.empty}">
+                            <span>Lista vacía</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Lista de Compras</h4>
+                        </div>
+                        <div th:if="${compras != null and !compras.empty}">
+                            <table class="table table-stryped">
+                                <thead class="thead-dark">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Vendedor</th>
+                                    <th>Valor</th>
+                                    <th>Precio</th>
+                                    <th>Fecha</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="compras, contador : ${compras}">
+                                    <td>[[${contador.count}]]</td>
+                                    <td>[[${compras.vendedor}]]</td>
+                                    <td>[[${compras.valor}]]</td>
+                                    <td>[[${compras.precio}]]</td>
+                                    <td>[[${compras.fechaCreacion}]]</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-center p-2" th:if="${compras == null or compras.empty}">
+                            <span>Lista vacía</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

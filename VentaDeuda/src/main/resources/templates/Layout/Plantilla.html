@@ -13,30 +13,31 @@
 </head>
 <body>
     <header th:fragment="header">
-        <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
+
+       <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
             <div class="container">
                 <a th:href="@{/}" class="navbar-brand">MarketPlace</a>
                 <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav">
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul sec:authorize="isAuthenticated()" class="navbar-nav">
                         <li class="nav-item px-2">
-                            <a th:href="@{/}" class="nav-link active">Inicio</a>
+                            <a th:href="@{/deuda/listado}" class="nav-link active">Inicio</a>
                         </li>
                     </ul>
-                    <ul sec:authorize="isAuthenticated()" class="navbar-nav ml-auto align-content-end">
-                        <li class="nav-item mr-3 align-content-end">
-                            <a href="#" class="nav-link">
+                    <ul sec:authorize="isAuthenticated()" class="navbar-nav ml-auto justify-content-end">
+                        <li class="nav-item mr-3 justify-content-end">
+                            <a href="#" class="nav-link justify-content-end">
                                 <i class="fas fa-user"></i>
                                 <span th:text="Bienvenido">Bievenido:</span>
                                 <span sec:authentication="name">Usuario</span>
                             </a>
                         </li>
-                        <li class="nav-item align-content-end">
+                        <li class="nav-item justify-content-end">
                             <form method="POST" th:action="@{/logout}">
-                                <a href="#" onclick="this.parentNode.submit();" class="nav-link">
-                                    <i class="fas fa-user-times"></i> "Salir"
+                                <a th:href="@{/logout}" onclick="this.parentNode.submit();" class="nav-link">
+                                    <i type="submit" class="fas fa-user-times"> Cerrar Sesion</i>
                                 </a>
                             </form>
                         </li>
@@ -44,17 +45,6 @@
                 </div>
             </div>
         </nav>
-        <section id="main-header" class="py-2 bg-info text-white">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h1>
-                            <i class="fas fa-cog"></i> "MarketPlace"
-                        </h1>
-                    </div>
-                </div>
-            </div>
-        </section>
     </header>
 </body>
 </html>
