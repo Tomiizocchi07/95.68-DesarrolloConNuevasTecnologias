@@ -30,86 +30,24 @@
                             </div>
                             <br>
                             <div class="row form-group">
-                                <label class="col-md-3">Password</label>
-                                <input type="password"class="form-control col-md-7"th:field="*{password}"/>
+                                <label class="col-md-3">Saldo</label>
+                                <input type="Saldo Disponible"class="form-control col-md-7"th:field="*{saldo}"/>
                             </div>
                             <br>
                             <div class="row form-group hstack gap-2 justify-content-lg-center">
                                 <a th:href="@{/deuda/listado}" class="btn btn-info btn-block col-md-4">Regresar</a>
+                                <a th:href="@{/usuario/compras}" class="btn btn-success btn-block col-md-4 justify-content-center" value="Regresar"/>Compras</a>
+                                <a th:href="@{/usuario/ventas}" class="btn btn-secondary btn-block col-md-4 justify-content-center" value="Regresar"/>Ventas</a>
                             </div>
                         </form >
-                    </div>
-                </div>
-            </div>
-            <br><br>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Lista de Ventas</h4>
-                        </div>
-                        <div th:if="${ventas != null and !ventas.empty}">
-                            <table class="table table-stryped">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Vendedor</th>
-                                        <th>Valor</th>
-                                        <th>Precio</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr th:each="venta, contador : ${ventas}">
-                                        <td>[[${contador.count}]]</td>
-                                        <td>[[${venta.vendedor}]]</td>
-                                        <td>[[${venta.valor}]]</td>
-                                        <td>[[${venta.precio}]]</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="text-center p-2" th:if="${ventas == null or ventas.empty}">
-                            <span>Lista vacía</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br><br>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Lista de Compras</h4>
-                        </div>
-                        <div th:if="${compras != null and !compras.empty}">
-                            <table class="table table-stryped">
-                                <thead class="thead-dark">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Vendedor</th>
-                                    <th>Valor</th>
-                                    <th>Precio</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="compras, contador : ${compras}">
-                                    <td>[[${contador.count}]]</td>
-                                    <td>[[${compras.vendedor}]]</td>
-                                    <td>[[${compras.valor}]]</td>
-                                    <td>[[${compras.precio}]]</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="text-center p-2" th:if="${compras == null or compras.empty}">
-                            <span>Lista vacía</span>
+                        <div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 
 </body>
 </html>

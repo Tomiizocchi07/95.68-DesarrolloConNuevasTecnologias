@@ -34,6 +34,12 @@
                                 <span sec:authentication="name">Usuario</span>
                             </a>
                         </li>
+                        <li class="nav-item mr-3 justify-content-end">
+                            <a th:href="@{/usuario}" class="nav-link justify-content-end">
+                                <i class="fas fa-user"></i>
+                                <span th:text="Perfil">Perfil</span>
+                            </a>
+                        </li>
                         <li class="nav-item justify-content-end">
                             <form method="POST" th:action="@{/logout}">
                                 <a th:href="@{/logout}" onclick="this.parentNode.submit();" class="nav-link">

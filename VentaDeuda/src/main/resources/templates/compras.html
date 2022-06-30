@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="Layout/plantilla :: head">
+    <title>Compras</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<header th:replace="Layout/plantilla :: header"></header>
+<br><br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Lista de Compras</h4>
+                </div>
+                <div th:if="${compras != null and !compras.empty}">
+                    <table class="table table-stryped">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Vendedor</th>
+                            <th>Valor</th>
+                            <th>Descripcion</th>
+                            <th>Precio</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="compra, contador : ${compras}">
+                            <td>[[${contador.count}]]</td>
+                            <td>[[${compra.vendedor.userName}]]</td>
+                            <td>[[${compra.valor}]]</td>
+                            <td>[[${compra.descripcion}]]</td>
+                            <td>[[${compra.precio}]]</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center p-2" th:if="${compras == null or compras.empty}">
+                    <span>Lista vacía</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <a th:href="@{/usuario}" class="btn btn-success btn-block col-md-4 justify-content-center" value="Regresar"/>Regresar</a>
+</div>
+</body>
+</html>

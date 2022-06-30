@@ -39,13 +39,21 @@ public class Usuario implements Serializable {
     @Column(name = "saldo")
     private int saldo;
 
-    @OneToOne
-    private RolComprador compras;
+    @OneToMany
+    private List<Deuda> compras;
 
-    @OneToOne
-    private RolVendedor ventas;
+    @OneToMany
+    private List<Deuda> ventas;
 
     @OneToMany
     @Column(name = "nivel")
     private List<Nivel> nivel;
+
+    public void realizarVenta(Deuda deuda){
+        this.ventas.add(deuda);
+    }
+
+    public void realizarCompra(Deuda deuda){
+        this.compras.add(deuda);
+    }
 }

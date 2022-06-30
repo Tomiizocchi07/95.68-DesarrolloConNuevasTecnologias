@@ -21,14 +21,16 @@
                                 <th>#</th>
                                 <th>Vendedor</th>
                                 <th>Valor</th>
+                                <th>Descripcion</th>
                                 <th>Precio</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:each="deuda, contador : ${deudas}">
                                 <td>[[${contador.count}]]</td>
-                                <td>[[${deuda.vendedor}]]</td>
+                                <td>[[${deuda.vendedor.userName}]]</td>
                                 <td>[[${deuda.valor}]]</td>
+                                <td>[[${deuda.descripcion}]]</td>
                                 <td>[[${deuda.precio}]]</td>
                                 <td>
                                     <a th:href="@{/deuda/comprar/} + ${deuda.idDeuda}" class="btn btn-dark">

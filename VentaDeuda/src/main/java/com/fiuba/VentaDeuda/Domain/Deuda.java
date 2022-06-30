@@ -26,10 +26,10 @@ public class Deuda implements Serializable {
     private BigInteger valor;
 
     @ManyToOne
-    private RolComprador comprador;
+    private Usuario comprador;
 
     @ManyToOne
-    private RolVendedor vendedor;
+    private Usuario vendedor;
 
     @NotNull
     private BigInteger precio;
