@@ -1,6 +1,7 @@
 package com.fiuba.VentaDeuda.Controller;
 
 import com.fiuba.VentaDeuda.DTO.Deuda.DeudaRequest;
+import com.fiuba.VentaDeuda.DTO.Deuda.DeudaResponse;
 import com.fiuba.VentaDeuda.DTO.Usuario.UsuarioRequest;
 import com.fiuba.VentaDeuda.Domain.*;
 import com.fiuba.VentaDeuda.Service.DeudaService;
@@ -14,6 +15,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class AppController {
@@ -52,9 +55,9 @@ public class AppController {
         else{
             Deuda deuda = entityDTOConverter.convertDTOToDeuda(deudaRequest);
             Usuario usuario = usuarioService.findByUserName(auth.getName());
-            deuda.setVendedor(usuario.getVentas());
+            deuda.setVendedor(usuario);
+            usuario.realizarVenta(deuda);
             deuda.setEstado(false);
-            usuario.getVentas().agregarVenta(deuda);
             model.addAttribute("deuda",deudaService.guardar(deuda));
         }
         return "redirect:/deuda/listado";
@@ -81,30 +84,50 @@ public class AppController {
     @GetMapping("/usuario")
     public String mostrarPerfil(Authentication auth, Model model){
         Usuario usuario = usuarioService.findByUserName(auth.getName());
-        model.addAttribute("usuario", usuario);
-        model.addAttribute("ventas",usuario.getVentas());
-        model.addAttribute("compras",usuario.getCompras());
+        model.addAttribute("usuario", entityDTOConverter.convertUsuarioToDTO(usuario));
         return "profile";
+    }
+
+    @GetMapping("/usuario/compras")
+    public String mostrarCompras(Authentication auth, Model model){
+        Usuario usuario = usuarioService.findByUserName(auth.getName());
+        model.addAttribute("compras",usuario.getCompras());
+        return "compras";
+    }
+
+    @GetMapping("/usuario/ventas")
+    public String mostrarVentas(Authentication auth, Model model){
+        Usuario usuario = usuarioService.findByUserName(auth.getName());
+        model.addAttribute("ventas",usuario.getVentas());
+        return "ventas";
     }
 
     @GetMapping("/deuda/listado")
     public String deudas(Model model){
-        model.addAttribute("deudas", deudaService.listarDeudas());
-
+        model.addAttribute("deudas", deudaService.listarDeudasDisponibles());
         return "deudas";
     }
 
-    @PutMapping("/deuda/comprar/{idDeuda}")
-    public void comprarDeuda(@PathVariable Authentication auth, long idDeuda){
+    @GetMapping("/deuda/comprar/{idDeuda}")
+    public String comprarDeuda(@PathVariable long idDeuda, Authentication auth){
         Usuario usuario = usuarioService.findByUserName(auth.getName());
         Deuda deuda = deudaService.encontrarDeuda(idDeuda);
-        RolComprador compra = usuario.getCompras();
-        RolVendedor venta = usuario.getVentas();
-        compra.setUsuario(usuario);
-        compra.agregarCompra(deuda);
-        deuda.setComprador(compra);
-        venta.agregarVenta(deuda);
-        venta.setUsuario(deuda.getVendedor().getUsuario());
+        usuario.realizarCompra(deuda);
+        deuda.setComprador(usuario);
+        deuda.setEstado(true);
+        usuarioService.guardar(usuario);
+        deudaService.guardar(deuda);
+        return "redirect:/deuda/listado";
+    }
+
+    @GetMapping("/deuda/comprar1")
+    public String comprar(Authentication auth, @RequestBody DeudaRequest deudaRequest){
+        Deuda deuda = entityDTOConverter.convertDTOToDeuda(deudaRequest);
+        Usuario usuario = usuarioService.findByUserName(auth.getName());
+        usuario.realizarCompra(deuda);
+        deuda.setComprador(usuario);
+        deuda.setEstado(true);
+        return "deudas";
     }
 
 }

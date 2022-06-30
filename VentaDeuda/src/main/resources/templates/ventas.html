@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="Layout/plantilla :: head">
+    <title>Ventas</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<header th:replace="Layout/plantilla :: header"></header>
+<br><br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Lista de Ventas</h4>
+                </div>
+                <div th:if="${ventas != null and !ventas.empty}">
+                    <table class="table table-stryped">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Vendedor</th>
+                            <th>Valor</th>
+                            <th>Descripcion</th>
+                            <th>Precio</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="venta, contador : ${ventas}">
+                            <td>[[${contador.count}]]</td>
+                            <td>[[${venta.comprador}]]</td>
+                            <td>[[${venta.valor}]]</td>
+                            <td>[[${venta.descripcion}]]</td>
+                            <td>[[${venta.precio}]]</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center p-2" th:if="${ventas == null or ventas.empty}">
+                    <span>Lista vacía</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <a th:href="@{/usuario}" class="btn btn-success btn-block col-md-4 justify-content-center" value="Regresar"/>Regresar</a>
+</div>
+</body>
+</html>

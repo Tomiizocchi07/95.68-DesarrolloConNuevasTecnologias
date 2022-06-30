@@ -12,5 +12,7 @@ public interface DeudaService {
 
     Deuda encontrarDeuda(Long idDeuda);
 
+    List<Deuda> listarDeudasDisponibles();
+
     List<Deuda> listarDeudas ();
 }
