@@ -2,7 +2,9 @@ package com.fiuba.VentaDeuda.Controller;
 
 import com.fiuba.VentaDeuda.DTO.Deuda.DeudaRequest;
 import com.fiuba.VentaDeuda.DTO.Deuda.DeudaResponse;
+import com.fiuba.VentaDeuda.DTO.Usuario.SaldoUsuarioRequest;
 import com.fiuba.VentaDeuda.DTO.Usuario.UsuarioRequest;
+import com.fiuba.VentaDeuda.DTO.Usuario.UsuarioResponse;
 import com.fiuba.VentaDeuda.Domain.*;
 import com.fiuba.VentaDeuda.Service.DeudaService;
 import com.fiuba.VentaDeuda.Service.UsuarioService;
@@ -120,14 +122,18 @@ public class AppController {
         return "redirect:/deuda/listado";
     }
 
-    @GetMapping("/deuda/comprar1")
-    public String comprar(Authentication auth, @RequestBody DeudaRequest deudaRequest){
-        Deuda deuda = entityDTOConverter.convertDTOToDeuda(deudaRequest);
+    @GetMapping("/usuario/actualizar")
+    public String cargarSaldo(Authentication auth, Model model){
+        model.addAttribute("usuario", usuarioService.findByUserName(auth.getName()));
+        return "cargarSaldo";
+    }
+
+    @GetMapping("/usuario/actualizar/saldo")
+    public String cargarSaldoAUsuario(@RequestParam int saldo, Authentication auth){
         Usuario usuario = usuarioService.findByUserName(auth.getName());
-        usuario.realizarCompra(deuda);
-        deuda.setComprador(usuario);
-        deuda.setEstado(true);
-        return "deudas";
+        usuario.setSaldo(saldo);
+        usuarioService.guardar(usuario);
+        return "redirect:/usuario";
     }
 
 }
