@@ -31,10 +31,11 @@
                             <br>
                             <div class="row form-group">
                                 <label class="col-md-3">Saldo</label>
-                                <input type="Saldo Disponible"class="form-control col-md-7"th:field="*{saldo}"/>
+                                <input type="text"class="form-control col-md-7"th:field="*{saldo}"/>
                             </div>
                             <br>
                             <div class="row form-group hstack gap-2 justify-content-lg-center">
+                                <a th:href="@{/usuario/actualizar}" class="btn btn-dark btn-block col-md-4">Actualizar Saldo</a>
                                 <a th:href="@{/deuda/listado}" class="btn btn-info btn-block col-md-4">Regresar</a>
                                 <a th:href="@{/usuario/compras}" class="btn btn-success btn-block col-md-4 justify-content-center" value="Regresar"/>Compras</a>
                                 <a th:href="@{/usuario/ventas}" class="btn btn-secondary btn-block col-md-4 justify-content-center" value="Regresar"/>Ventas</a>
@@ -48,6 +49,9 @@
             </div>
         </div>
     </div>
-
+    <br><br>
+    <footer th:fragment="footer" class = "d-flex align-content-center justify-content-center align-items-center bg-black pt-3 pb-3" >
+        <p class="m-0 text-center text-white">Copyright © Tomas Zocchi 2022</p>
+    </footer>
 </body>
 </html>

@@ -19,7 +19,7 @@
                         <thead class="thead-dark">
                         <tr>
                             <th>#</th>
-                            <th>Vendedor</th>
+                            <th>Comprador</th>
                             <th>Valor</th>
                             <th>Descripcion</th>
                             <th>Precio</th>
@@ -28,7 +28,7 @@
                         <tbody>
                         <tr th:each="venta, contador : ${ventas}">
                             <td>[[${contador.count}]]</td>
-                            <td>[[${venta.comprador}]]</td>
+                            <td>[[${venta.comprador.userName}]]</td>
                             <td>[[${venta.valor}]]</td>
                             <td>[[${venta.descripcion}]]</td>
                             <td>[[${venta.precio}]]</td>
@@ -45,5 +45,9 @@
     <br><br>
     <a th:href="@{/usuario}" class="btn btn-success btn-block col-md-4 justify-content-center" value="Regresar"/>Regresar</a>
 </div>
+<br><br>
+<footer th:fragment="footer" class = "d-flex align-content-center justify-content-center align-items-center bg-black pt-3 pb-3" >
+    <p class="m-0 text-center text-white">Copyright © Tomas Zocchi 2022</p>
+</footer>
 </body>
 </html>
