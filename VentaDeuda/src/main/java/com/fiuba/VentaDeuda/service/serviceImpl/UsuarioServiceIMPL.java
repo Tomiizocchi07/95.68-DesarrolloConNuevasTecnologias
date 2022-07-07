@@ -17,8 +17,13 @@ public class UsuarioServiceIMPL implements UsuarioService {
     private BCryptPasswordEncoder passwordEncoder;
 
     @Override
-    public Usuario guardar(Usuario usuario) {
+    public Usuario crearUsuario(Usuario usuario){
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+        return(usuarioDAO.save(usuario));
+    }
+
+    @Override
+    public Usuario guardar(Usuario usuario) {
         return(usuarioDAO.save(usuario));
     }
 

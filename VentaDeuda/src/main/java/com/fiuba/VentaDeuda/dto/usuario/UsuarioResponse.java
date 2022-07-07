@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigInteger;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -15,5 +17,5 @@ public class UsuarioResponse {
 
     private String cuit;
 
-    private int saldo;
+    private BigInteger saldo;
 }

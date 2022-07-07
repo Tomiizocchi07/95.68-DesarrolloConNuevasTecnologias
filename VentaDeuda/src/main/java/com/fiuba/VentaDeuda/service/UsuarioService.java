@@ -10,5 +10,5 @@ public interface UsuarioService {
 
     Usuario findByUserName(String userName);
 
-
+    Usuario crearUsuario(Usuario usuario);
 }

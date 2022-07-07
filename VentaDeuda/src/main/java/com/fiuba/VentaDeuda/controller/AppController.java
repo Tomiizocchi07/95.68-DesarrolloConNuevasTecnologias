@@ -1,6 +1,7 @@
 package com.fiuba.VentaDeuda.controller;
 
 import com.fiuba.VentaDeuda.dto.deuda.DeudaRequest;
+import com.fiuba.VentaDeuda.dto.usuario.SaldoUsuarioRequest;
 import com.fiuba.VentaDeuda.dto.usuario.UsuarioRequest;
 import com.fiuba.VentaDeuda.dto.usuario.UsuarioResponse;
 import com.fiuba.VentaDeuda.domain.*;
@@ -16,6 +17,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 
 @Controller
 public class AppController {
@@ -56,7 +59,7 @@ public class AppController {
             Deuda deuda = entityDTOConverter.convertDTOToDeuda(deudaRequest);
             Usuario usuario = usuarioService.findByUserName(auth.getName());
             deuda.crearDeuda(usuario);
-            usuario.realizarVenta(deuda);
+            usuario.crearDeuda(deuda);
             model.addAttribute("deuda",deudaService.guardar(deuda));
         }
         return "redirect:/deuda/listado";
@@ -75,7 +78,7 @@ public class AppController {
         }
         else{
             Usuario usuario = entityDTOConverter.convertDTOToUsuario(usuarioRequest);
-            model.addAttribute("usuario",usuarioService.guardar(usuario));
+            model.addAttribute("usuario",usuarioService.crearUsuario(usuario));
         }
         return "redirect:/auth/login";
     }
@@ -111,6 +114,7 @@ public class AppController {
     public String comprarDeuda(@PathVariable long idDeuda, Authentication auth){
         Usuario usuario = usuarioService.findByUserName(auth.getName());
         Deuda deuda = deudaService.encontrarDeuda(idDeuda);
+        deuda.getVendedor().realizarVenta(deuda);
         usuario.realizarCompra(deuda);
         deuda.realizarVenta(usuario);
         usuarioService.guardar(usuario);
@@ -125,10 +129,10 @@ public class AppController {
     }
 
     @GetMapping("/usuario/actualizar/saldo")
-    public String cargarSaldoAUsuario(@RequestParam int saldo, Authentication auth){
-        Usuario usuario = usuarioService.findByUserName(auth.getName());
-        usuario.validarMonto(saldo);
-        usuario.setSaldo(saldo);
+    public String cargarSaldoAUsuario(@ModelAttribute SaldoUsuarioRequest saldoUsuarioRequest){
+        Usuario usuario = usuarioService.findByUserName(saldoUsuarioRequest.getUserName());
+        usuario.validarMonto(saldoUsuarioRequest.getSaldo());
+        usuario.setSaldo(saldoUsuarioRequest.getSaldo());
         usuarioService.guardar(usuario);
         return "redirect:/usuario";
     }

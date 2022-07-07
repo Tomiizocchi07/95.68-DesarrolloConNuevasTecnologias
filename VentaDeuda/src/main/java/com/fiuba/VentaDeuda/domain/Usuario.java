@@ -7,6 +7,8 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 @Entity
@@ -34,7 +36,7 @@ public class Usuario implements Serializable {
     private String cuit;
 
     @Column(name = "saldo")
-    private int saldo;
+    private BigDecimal saldo;
 
     @OneToMany(mappedBy = "comprador")
     private List<Deuda> compras;
@@ -43,15 +45,20 @@ public class Usuario implements Serializable {
     private List<Deuda> ventas;
 
     public void realizarVenta(Deuda deuda){
+        this.saldo = saldo.add(deuda.getPrecio());
+    }
+
+    public void crearDeuda(Deuda deuda){
         this.ventas.add(deuda);
     }
 
     public void realizarCompra(Deuda deuda){
+        this.saldo = saldo.subtract(deuda.getPrecio());
         this.compras.add(deuda);
     }
 
-    public void validarMonto(int saldo){
-        if( saldo < 0 ){
+    public void validarMonto(BigDecimal saldo){
+        if( saldo.compareTo(new BigDecimal(0)) == -1 ){
             throw new SaldoNegativoException(ExceptionMessage.SALDO_NEGATIVO.getValue());
         }
     }
