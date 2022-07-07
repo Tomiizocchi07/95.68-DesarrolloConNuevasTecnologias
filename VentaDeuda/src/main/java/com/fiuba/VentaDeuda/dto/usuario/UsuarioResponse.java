@@ -1,11 +1,8 @@
-package com.fiuba.VentaDeuda.DTO.Usuario;
+package com.fiuba.VentaDeuda.dto.usuario;
 
-import com.fiuba.VentaDeuda.Domain.Deuda;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor

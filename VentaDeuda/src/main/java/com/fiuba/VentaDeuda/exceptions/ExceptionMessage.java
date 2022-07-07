@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public enum ExceptionMessage {
     CUIT_NO_VALIDO("El CUIT proporcionado no es correcto."),
     COMPRA_INVALIDA("No se pudo realizar la compra. Intentelo nuevamente."),
-    DATOS_INCORRECTOS("Los datos proporcionados no son correctos");
+    DATOS_INCORRECTOS("Los datos proporcionados no son correctos"),
+    SALDO_NEGATIVO("No puede cargar saldo negativo");
 
     ExceptionMessage(String message){value = message;}
 

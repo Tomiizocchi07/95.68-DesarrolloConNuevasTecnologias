@@ -1,8 +1,9 @@
-package com.fiuba.VentaDeuda.Service.ServiceIMPL;
+package com.fiuba.VentaDeuda.service.serviceImpl;
 
-import com.fiuba.VentaDeuda.DAO.DeudaDAO;
-import com.fiuba.VentaDeuda.Domain.Deuda;
-import com.fiuba.VentaDeuda.Service.DeudaService;
+import com.fiuba.VentaDeuda.dao.DeudaDAO;
+import com.fiuba.VentaDeuda.domain.Deuda;
+import com.fiuba.VentaDeuda.enums.EstadoDeuda;
+import com.fiuba.VentaDeuda.service.DeudaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,8 +24,8 @@ public class DeudaServiceIMPL implements DeudaService {
     }
 
     @Override
-    public Deuda encontrarDeuda(Long idDeuda) {
-        return(deudaDAO.findById(idDeuda).orElse(null));
+    public Deuda encontrarDeuda(Long id) {
+        return(deudaDAO.findById(id).orElse(null));
     }
 
     @Override
@@ -32,7 +33,7 @@ public class DeudaServiceIMPL implements DeudaService {
         List<Deuda> deudas = deudaDAO.findAll();
         List<Deuda> deudasDisponibles = new ArrayList<>();
         for (Deuda deuda: deudas){
-            if(!deuda.isEstado()){
+            if(deuda.getEstado() == EstadoDeuda.NO_VENDIDO){
                 deudasDisponibles.add(deuda);
             }
         }

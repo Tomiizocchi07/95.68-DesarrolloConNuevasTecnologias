@@ -1,6 +1,6 @@
-package com.fiuba.VentaDeuda.Service;
+package com.fiuba.VentaDeuda.service;
 
-import com.fiuba.VentaDeuda.Domain.Usuario;
+import com.fiuba.VentaDeuda.domain.Usuario;
 
 public interface UsuarioService {
 

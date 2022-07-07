@@ -1,9 +1,9 @@
-package com.fiuba.VentaDeuda.Controller;
+package com.fiuba.VentaDeuda.controller;
 
-import com.fiuba.VentaDeuda.DTO.Usuario.UsuarioRequest;
-import com.fiuba.VentaDeuda.DTO.Usuario.UsuarioResponse;
-import com.fiuba.VentaDeuda.Domain.Usuario;
-import com.fiuba.VentaDeuda.Service.UsuarioService;
+import com.fiuba.VentaDeuda.dto.usuario.UsuarioRequest;
+import com.fiuba.VentaDeuda.dto.usuario.UsuarioResponse;
+import com.fiuba.VentaDeuda.domain.Usuario;
+import com.fiuba.VentaDeuda.service.UsuarioService;
 import com.fiuba.VentaDeuda.common.EntityDTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

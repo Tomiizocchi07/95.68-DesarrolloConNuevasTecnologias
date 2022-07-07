@@ -3,6 +3,7 @@ package com.fiuba.VentaDeuda.handler;
 import com.fiuba.VentaDeuda.exceptions.CompraInvalidaException;
 import com.fiuba.VentaDeuda.exceptions.CuitInvalidoException;
 import com.fiuba.VentaDeuda.exceptions.ExceptionResponse;
+import com.fiuba.VentaDeuda.exceptions.SaldoNegativoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -31,6 +32,12 @@ public class ExceptionsHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(CompraInvalidaException.class)
     public ResponseEntity<Object> handleCompraInvalida(Exception exception, WebRequest request){
+        ExceptionResponse response = new ExceptionResponse(exception.getMessage(), request.getDescription(false), HttpStatus.BAD_REQUEST, LocalDateTime.now());
+        return new ResponseEntity<>(response, response.getStatus());
+    }
+
+    @ExceptionHandler(SaldoNegativoException.class)
+    public ResponseEntity<Object> handleSaldoNegativo(Exception exception, WebRequest request){
         ExceptionResponse response = new ExceptionResponse(exception.getMessage(), request.getDescription(false), HttpStatus.BAD_REQUEST, LocalDateTime.now());
         return new ResponseEntity<>(response, response.getStatus());
     }

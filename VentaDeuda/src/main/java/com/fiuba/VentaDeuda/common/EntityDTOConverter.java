@@ -1,11 +1,11 @@
 package com.fiuba.VentaDeuda.common;
 
-import com.fiuba.VentaDeuda.DTO.Deuda.DeudaRequest;
-import com.fiuba.VentaDeuda.DTO.Deuda.DeudaResponse;
-import com.fiuba.VentaDeuda.DTO.Usuario.UsuarioRequest;
-import com.fiuba.VentaDeuda.DTO.Usuario.UsuarioResponse;
-import com.fiuba.VentaDeuda.Domain.Deuda;
-import com.fiuba.VentaDeuda.Domain.Usuario;
+import com.fiuba.VentaDeuda.dto.deuda.DeudaRequest;
+import com.fiuba.VentaDeuda.dto.deuda.DeudaResponse;
+import com.fiuba.VentaDeuda.dto.usuario.UsuarioRequest;
+import com.fiuba.VentaDeuda.dto.usuario.UsuarioResponse;
+import com.fiuba.VentaDeuda.domain.Deuda;
+import com.fiuba.VentaDeuda.domain.Usuario;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

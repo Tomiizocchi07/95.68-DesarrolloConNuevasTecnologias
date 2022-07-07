@@ -1,7 +1,7 @@
-package com.fiuba.VentaDeuda.Service.ServiceIMPL;
+package com.fiuba.VentaDeuda.service.serviceImpl;
 
-import com.fiuba.VentaDeuda.DAO.UsuarioDAO;
-import com.fiuba.VentaDeuda.Domain.Usuario;
+import com.fiuba.VentaDeuda.dao.UsuarioDAO;
+import com.fiuba.VentaDeuda.domain.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;

@@ -1,13 +1,12 @@
-package com.fiuba.VentaDeuda.Controller;
+package com.fiuba.VentaDeuda.controller;
 
-import com.fiuba.VentaDeuda.DTO.Deuda.DeudaRequest;
-import com.fiuba.VentaDeuda.DTO.Deuda.DeudaResponse;
-import com.fiuba.VentaDeuda.DTO.Usuario.SaldoUsuarioRequest;
-import com.fiuba.VentaDeuda.DTO.Usuario.UsuarioRequest;
-import com.fiuba.VentaDeuda.DTO.Usuario.UsuarioResponse;
-import com.fiuba.VentaDeuda.Domain.*;
-import com.fiuba.VentaDeuda.Service.DeudaService;
-import com.fiuba.VentaDeuda.Service.UsuarioService;
+import com.fiuba.VentaDeuda.dto.deuda.DeudaRequest;
+import com.fiuba.VentaDeuda.dto.usuario.UsuarioRequest;
+import com.fiuba.VentaDeuda.dto.usuario.UsuarioResponse;
+import com.fiuba.VentaDeuda.domain.*;
+import com.fiuba.VentaDeuda.enums.EstadoDeuda;
+import com.fiuba.VentaDeuda.service.DeudaService;
+import com.fiuba.VentaDeuda.service.UsuarioService;
 import com.fiuba.VentaDeuda.common.EntityDTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -17,8 +16,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class AppController {
@@ -39,27 +36,27 @@ public class AppController {
 
     @GetMapping("/auth/login")
     public String login (Model model){
-        model.addAttribute("usuario", new Usuario());
+        model.addAttribute("usuario", new UsuarioResponse());
         return "login";
     }
 
     @GetMapping("/deuda/crear")
     public String crearDeuda(Model model){
-        model.addAttribute("deuda", new Deuda());
+        model.addAttribute("deuda", new DeudaRequest());
         return "nuevaDeuda";
     }
 
     @PostMapping("/deuda/crear")
     public String formCrearDeuda(@Valid @ModelAttribute DeudaRequest deudaRequest, Authentication auth, BindingResult result, Model model){
         if(result.hasErrors()){
+            System.out.println(result);
             return"redirect:/deuda/crear";
         }
         else{
             Deuda deuda = entityDTOConverter.convertDTOToDeuda(deudaRequest);
             Usuario usuario = usuarioService.findByUserName(auth.getName());
-            deuda.setVendedor(usuario);
+            deuda.crearDeuda(usuario);
             usuario.realizarVenta(deuda);
-            deuda.setEstado(false);
             model.addAttribute("deuda",deudaService.guardar(deuda));
         }
         return "redirect:/deuda/listado";
@@ -67,7 +64,7 @@ public class AppController {
 
     @GetMapping("/auth/registro")
     public String registroForm(Model model){
-        model.addAttribute("usuario", new Usuario());
+        model.addAttribute("usuario", new UsuarioRequest());
         return "registro";
     }
 
@@ -115,8 +112,7 @@ public class AppController {
         Usuario usuario = usuarioService.findByUserName(auth.getName());
         Deuda deuda = deudaService.encontrarDeuda(idDeuda);
         usuario.realizarCompra(deuda);
-        deuda.setComprador(usuario);
-        deuda.setEstado(true);
+        deuda.realizarVenta(usuario);
         usuarioService.guardar(usuario);
         deudaService.guardar(deuda);
         return "redirect:/deuda/listado";
@@ -131,6 +127,7 @@ public class AppController {
     @GetMapping("/usuario/actualizar/saldo")
     public String cargarSaldoAUsuario(@RequestParam int saldo, Authentication auth){
         Usuario usuario = usuarioService.findByUserName(auth.getName());
+        usuario.validarMonto(saldo);
         usuario.setSaldo(saldo);
         usuarioService.guardar(usuario);
         return "redirect:/usuario";

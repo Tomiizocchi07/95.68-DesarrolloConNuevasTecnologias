@@ -1,16 +1,13 @@
-package com.fiuba.VentaDeuda.Domain;
+package com.fiuba.VentaDeuda.domain;
 
+import com.fiuba.VentaDeuda.exceptions.ExceptionMessage;
+import com.fiuba.VentaDeuda.exceptions.SaldoNegativoException;
 import lombok.Data;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.math.BigInteger;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 @Entity
 @Table(name = "usuario")
@@ -39,15 +36,11 @@ public class Usuario implements Serializable {
     @Column(name = "saldo")
     private int saldo;
 
-    @OneToMany
+    @OneToMany(mappedBy = "comprador")
     private List<Deuda> compras;
 
-    @OneToMany
+    @OneToMany(mappedBy = "vendedor")
     private List<Deuda> ventas;
-
-    @OneToMany
-    @Column(name = "nivel")
-    private List<Nivel> nivel;
 
     public void realizarVenta(Deuda deuda){
         this.ventas.add(deuda);
@@ -55,5 +48,11 @@ public class Usuario implements Serializable {
 
     public void realizarCompra(Deuda deuda){
         this.compras.add(deuda);
+    }
+
+    public void validarMonto(int saldo){
+        if( saldo < 0 ){
+            throw new SaldoNegativoException(ExceptionMessage.SALDO_NEGATIVO.getValue());
+        }
     }
 }

@@ -21,6 +21,7 @@
                                 <th>#</th>
                                 <th>Vendedor</th>
                                 <th>Valor</th>
+                                <th>Fecha de Emision</th>
                                 <th>Descripcion</th>
                                 <th>Precio</th>
                             </tr>
@@ -30,10 +31,11 @@
                                 <td>[[${contador.count}]]</td>
                                 <td>[[${deuda.vendedor.userName}]]</td>
                                 <td>[[${deuda.valor}]]</td>
+                                <td><p th:text="${#dates.format(deuda.emision, 'dd/MM/yyyy')}"></p></td>
                                 <td>[[${deuda.descripcion}]]</td>
                                 <td>[[${deuda.precio}]]</td>
                                 <td>
-                                    <a th:href="@{/deuda/comprar/} + ${deuda.idDeuda}" class="btn btn-dark">
+                                    <a th:href="@{/deuda/comprar/} + ${deuda.id}" class="btn btn-dark">
                                         <i class="fas fa-angle-double-right"></i> Comprar
                                     </a>
                                 </td>

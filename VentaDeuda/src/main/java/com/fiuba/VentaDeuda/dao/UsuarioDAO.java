@@ -1,6 +1,6 @@
-package com.fiuba.VentaDeuda.DAO;
+package com.fiuba.VentaDeuda.dao;
 
-import com.fiuba.VentaDeuda.Domain.Usuario;
+import com.fiuba.VentaDeuda.domain.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UsuarioDAO extends JpaRepository<Usuario,Long> {

@@ -1,4 +1,4 @@
-package com.fiuba.VentaDeuda.DTO.Usuario;
+package com.fiuba.VentaDeuda.dto.usuario;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
