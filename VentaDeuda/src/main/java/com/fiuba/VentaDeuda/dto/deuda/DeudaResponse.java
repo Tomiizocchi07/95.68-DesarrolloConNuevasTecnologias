@@ -1,6 +1,5 @@
 package com.fiuba.VentaDeuda.dto.deuda;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fiuba.VentaDeuda.domain.Usuario;
 import com.fiuba.VentaDeuda.enums.EstadoDeuda;
 import lombok.AllArgsConstructor;
@@ -10,7 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -23,8 +22,9 @@ public class DeudaResponse {
     private Usuario vendedor;
     private BigInteger precio;
     private EstadoDeuda estado;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date emision;
+    private LocalDate emision;
     private String descripcion;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate publicacion;
 }

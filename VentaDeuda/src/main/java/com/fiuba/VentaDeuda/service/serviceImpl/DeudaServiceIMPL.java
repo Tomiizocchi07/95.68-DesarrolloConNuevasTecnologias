@@ -1,5 +1,6 @@
 package com.fiuba.VentaDeuda.service.serviceImpl;
 
+import com.fiuba.VentaDeuda.common.EntityDTOConverter;
 import com.fiuba.VentaDeuda.dao.DeudaDAO;
 import com.fiuba.VentaDeuda.domain.Deuda;
 import com.fiuba.VentaDeuda.enums.EstadoDeuda;
@@ -33,7 +34,8 @@ public class DeudaServiceIMPL implements DeudaService {
         List<Deuda> deudas = deudaDAO.findAll();
         List<Deuda> deudasDisponibles = new ArrayList<>();
         for (Deuda deuda: deudas){
-            if(deuda.getEstado() == EstadoDeuda.NO_VENDIDO){
+            deuda.comprobarCaducidad();
+            if(deuda.getEstado() == EstadoDeuda.NO_VENDIDO || deuda.getEstado() == EstadoDeuda.VENCIDA){
                 deudasDisponibles.add(deuda);
             }
         }

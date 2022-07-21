@@ -1,22 +1,18 @@
 package com.fiuba.VentaDeuda.domain;
 
-import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fiuba.VentaDeuda.enums.EstadoDeuda;
+import com.fiuba.VentaDeuda.exceptions.DeudaCaducadaException;
+import com.fiuba.VentaDeuda.exceptions.DeudaNoDisponibleException;
+import com.fiuba.VentaDeuda.exceptions.ExceptionMessage;
 import lombok.Data;
-import org.springframework.cglib.core.Local;
-import org.springframework.cglib.core.internal.LoadingCache;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
+import static java.time.temporal.ChronoUnit.*;
 
 @Entity
 @Table(name = "deuda")
@@ -44,8 +40,10 @@ public class Deuda implements Serializable {
     private BigDecimal precio;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Date emision;
+    private LocalDate emision;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate publicacion;
 
     @NotNull
     private EstadoDeuda estado;
@@ -60,6 +58,24 @@ public class Deuda implements Serializable {
     public void crearDeuda(Usuario usuario){
         this.setVendedor(usuario);
         this.setEstado(EstadoDeuda.NO_VENDIDO);
+    }
+
+    public void comprobarCaducidad(){
+        if (DAYS.between(this.getEmision(), LocalDate.now()) > 7){
+            this.setEstado(EstadoDeuda.VENCIDA);
+        }
+    }
+
+    public void comprobarExpiracion(){
+        if(YEARS.between(this.getPublicacion(), LocalDate.now()) >= 2){
+            throw new DeudaCaducadaException(ExceptionMessage.DEUDA_CADUCADA.getValue());
+        }
+    }
+
+    public void comprobarDisponibilidad(){
+        if(!(this.getEstado() == EstadoDeuda.NO_VENDIDO)){
+            throw new DeudaNoDisponibleException(ExceptionMessage.DEUDA_NO_DISPONIBLE.getValue());
+        }
     }
 
 }

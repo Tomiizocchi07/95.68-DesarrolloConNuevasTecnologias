@@ -1,7 +1,11 @@
 package com.fiuba.VentaDeuda.service.serviceImpl;
 
 import com.fiuba.VentaDeuda.dao.UsuarioDAO;
+import com.fiuba.VentaDeuda.domain.Deuda;
 import com.fiuba.VentaDeuda.domain.Usuario;
+import com.fiuba.VentaDeuda.dto.usuario.SaldoUsuarioRequest;
+import com.fiuba.VentaDeuda.exceptions.CuitInvalidoException;
+import com.fiuba.VentaDeuda.exceptions.ExceptionMessage;
 import com.fiuba.VentaDeuda.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,6 +23,9 @@ public class UsuarioServiceIMPL implements UsuarioService {
     @Override
     public Usuario crearUsuario(Usuario usuario){
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+        if(!usuario.isValidCUITCUIL(usuario.getCuit())){
+            throw new CuitInvalidoException(ExceptionMessage.CUIT_NO_VALIDO.getValue());
+        };
         return(usuarioDAO.save(usuario));
     }
 

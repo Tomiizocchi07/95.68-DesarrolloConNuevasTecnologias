@@ -1,24 +1,25 @@
 package com.fiuba.VentaDeuda.controller;
 
+import com.fiuba.VentaDeuda.common.EntityDTOConverter;
+import com.fiuba.VentaDeuda.domain.Deuda;
+import com.fiuba.VentaDeuda.domain.Usuario;
 import com.fiuba.VentaDeuda.dto.deuda.DeudaRequest;
 import com.fiuba.VentaDeuda.dto.usuario.SaldoUsuarioRequest;
 import com.fiuba.VentaDeuda.dto.usuario.UsuarioRequest;
 import com.fiuba.VentaDeuda.dto.usuario.UsuarioResponse;
-import com.fiuba.VentaDeuda.domain.*;
-import com.fiuba.VentaDeuda.enums.EstadoDeuda;
 import com.fiuba.VentaDeuda.service.DeudaService;
 import com.fiuba.VentaDeuda.service.UsuarioService;
-import com.fiuba.VentaDeuda.common.EntityDTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 
 @Controller
 public class AppController {
@@ -58,6 +59,7 @@ public class AppController {
         else{
             Deuda deuda = entityDTOConverter.convertDTOToDeuda(deudaRequest);
             Usuario usuario = usuarioService.findByUserName(auth.getName());
+            deuda.comprobarExpiracion();
             deuda.crearDeuda(usuario);
             usuario.crearDeuda(deuda);
             model.addAttribute("deuda",deudaService.guardar(deuda));
@@ -114,6 +116,7 @@ public class AppController {
     public String comprarDeuda(@PathVariable long idDeuda, Authentication auth){
         Usuario usuario = usuarioService.findByUserName(auth.getName());
         Deuda deuda = deudaService.encontrarDeuda(idDeuda);
+        deuda.comprobarDisponibilidad();
         deuda.getVendedor().realizarVenta(deuda);
         usuario.realizarCompra(deuda);
         deuda.realizarVenta(usuario);

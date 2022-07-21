@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns="http://www.w3.org/1999/html">
 <head th:replace="Layout/plantilla :: head">
     <title>Deudas</title>
     <meta charset="UTF-8"/>
@@ -31,7 +32,7 @@
                                 <td>[[${contador.count}]]</td>
                                 <td>[[${deuda.vendedor.userName}]]</td>
                                 <td>[[${deuda.valor}]]</td>
-                                <td><p th:text="${#dates.format(deuda.emision, 'dd/MM/yyyy')}"></p></td>
+                                <td><p th:text="${#temporals.format(deuda.emision, 'dd/MM/yyyy')}"></p></td>
                                 <td>[[${deuda.descripcion}]]</td>
                                 <td>[[${deuda.precio}]]</td>
                                 <td>

@@ -21,7 +21,9 @@ public class DeudaRequest {
 
     private String descripcion;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date emision;
+    private LocalDate emision;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate publicacion = LocalDate.now();
 }
